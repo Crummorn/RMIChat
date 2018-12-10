@@ -29,20 +29,5 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerIF {
 		}
 	}
 	
-	@Override
-	public ArrayList<String> listarClientes() throws RemoteException {
-		ArrayList<String> lista = new ArrayList<String>();
-		
-		for (ChatClientIF chatClientIF : chatClients) {
-			lista.add(chatClientIF.getName());
-		}
-		
-		return lista;
-	}
-
-	@Override
-	public ArrayList<ChatClientIF> getClientes() throws RemoteException {
-		return this.chatClients;
-	}
-
+	
 }

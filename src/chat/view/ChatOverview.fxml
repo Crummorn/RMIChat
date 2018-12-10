@@ -29,12 +29,12 @@
       </AnchorPane>
       <AnchorPane layoutX="15.0" layoutY="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
          <children>
-            <TextArea fx:id="chatTextArea" editable="false" layoutY="40.0" prefHeight="300.0" prefWidth="405.0" styleClass="middle" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+            <TextArea fx:id="chatTextArea" editable="false" layoutY="40.0" prefHeight="300.0" prefWidth="405.0" styleClass="middle" wrapText="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                <font>
                   <Font name="Lucida Sans Regular" size="12.0" />
                </font>
             </TextArea>
-            <TextField fx:id="mensagemTextField" layoutY="350.0" prefHeight="25.0" prefWidth="320.0" promptText="Digite sua mensagem aqui..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="85.0">
+            <TextField fx:id="mensagemTextField" layoutY="350.0" onAction="#TextFieldEnter" prefHeight="25.0" prefWidth="320.0" promptText="Digite sua mensagem aqui..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="85.0">
                <font>
                   <Font name="Lucida Sans Regular" size="12.0" />
                </font>

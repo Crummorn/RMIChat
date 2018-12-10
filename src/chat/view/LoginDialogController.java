@@ -3,6 +3,7 @@ package chat.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -18,6 +19,12 @@ public class LoginDialogController {
 
 	@FXML
 	private void initialize() {
+		nomeTextField.requestFocus();
+		
+		nomeTextField.setOnKeyPressed( (keyEvent) -> {  
+		    if(keyEvent.getCode() == KeyCode.ENTER) 
+					ButtonEntrarClick();
+		} );
 	}
 
 	public void setDialogStage(Stage dialogStage) {

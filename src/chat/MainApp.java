@@ -75,7 +75,11 @@ public class MainApp extends Application {
 
 			controller.setMainApp(this);
 
+
 			controller.inicializarChatclient(nome);
+			
+			controller.adicionarCliente(nome);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

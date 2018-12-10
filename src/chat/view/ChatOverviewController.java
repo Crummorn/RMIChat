@@ -1,7 +1,5 @@
 package chat.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -10,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,20 +16,18 @@ import java.rmi.ConnectException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.ServerException;
 import java.util.ArrayList;
 
 import chat.MainApp;
 import chat.model.client.ChatClient;
-import chat.model.client.ChatClientIF;
 import chat.model.server.ChatServerIF;
 import chat.model.server.Client;
 
 public class ChatOverviewController {
 	@FXML
-	private TableView<Client> usuariosTable;
+	private TableView<Client> usuariosTable = new TableView<>();
 	@FXML
-	private TableColumn<Client, String> usuariosColumn;
+	private TableColumn<Client, String> usuariosColumn = new TableColumn<>("nome");
 
 	@FXML
 	private TextField mensagemTextField;
@@ -43,13 +40,15 @@ public class ChatOverviewController {
 
 	private ChatServerIF chatServer;
 
-	private ChatClient client;
+	private ChatClient cliente;
+
+	private ArrayList<Client> clientes = new ArrayList<>(); // TODO: Botão de sair que remove o cliente que saiu da lista.
 
 	/**
 	 * O construtor. O construtor é chamado antes do método inicialize().
 	 */
 	public ChatOverviewController() {
-		
+
 	}
 
 	/**
@@ -58,59 +57,62 @@ public class ChatOverviewController {
 	 */
 	@FXML
 	private void initialize() {
-
+		usuariosColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		
+		mensagemTextField.setOnKeyPressed( (keyEvent) -> {  
+		    if(keyEvent.getCode() == KeyCode.ENTER) {
+				try {
+					ButtonEnviarClick();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+		    }
+		} );
+		
+		mensagemTextField.requestFocus();
 	}
 
 	@FXML
 	private void ButtonEnviarClick() throws RemoteException {
-		chatServer.broadcastMessage(client.getName() + ": " + mensagemTextField.getText());
+		chatServer.broadcastMessage(cliente.getName() + ": " + mensagemTextField.getText());
 
 		mensagemTextField.clear();
+		
+		mensagemTextField.requestFocus();
 	}
 
 	@FXML
-	private void ButtonAtualizarClick() throws RemoteException {	
-		usuariosColumn = new TableColumn<>("nome");
-		usuariosColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		
-		for (ChatClientIF usu : chatServer.getClientes()) {
+	private void ButtonAtualizarClick() throws RemoteException {
+		usuariosTable.getItems().clear();
 
-			Client cliente = new Client(usu.getName());
-			
-			usuariosTable.getItems().add(cliente);
-		}
-		
-
-		
-//		usuariosTable = new TableView<>();
-//		usuariosColumn = new TableColumn<>("name");
-//		
-//		usuariosColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-//		
-//		usuariosTable.setItems(FXCollections.observableArrayList(client.getClientesOnline()));
-//		
-//		usuariosTable.getColumns().addAll(usuariosColumn);
-		
+		usuariosTable.getItems().addAll(clientes);
 	}
 
+	public void adicionarCliente(String nome) {
+		
+	}
+	
 	public void inicializarChatclient(String nome) throws MalformedURLException, RemoteException, NotBoundException {
 		try {
+			
 			String chatServerURL = "rmi://localhost:10099/RMIChatServer";
-	
-			chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
-	
-			client = new ChatClient(nome, chatServer, this);
-	
-			new Thread(client).start();
-		} catch (ConnectException e) {
-		    Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("SERVIDOR OFFLINE!");
-            alert.setHeaderText("O servidor encontra-se offline.");
-            alert.setContentText("Por favor, tente novamente mais tarde.");
 
-            alert.showAndWait();
-            
-            mainApp.close();
+			chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
+
+			cliente = new ChatClient(nome, chatServer, this);
+
+			new Thread(cliente).start();
+			
+			clientes.add(new Client(nome));
+		} catch (ConnectException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("SERVIDOR OFFLINE!");
+			alert.setHeaderText("O servidor encontra-se offline.");
+			alert.setContentText("Por favor, tente novamente mais tarde.");
+
+			alert.showAndWait();
+
+			mainApp.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

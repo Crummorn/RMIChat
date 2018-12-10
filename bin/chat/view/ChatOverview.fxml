@@ -13,20 +13,23 @@
    <children>
       <AnchorPane layoutX="435.0" layoutY="1.0" prefHeight="400.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView layoutY="35.0" prefHeight="344.0" prefWidth="150.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="45.0">
+            <TableView fx:id="usuariosTable" layoutY="35.0" prefHeight="344.0" prefWidth="150.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="45.0">
               <columns>
-                <TableColumn editable="false" prefWidth="75.0" text="Usuarios Online" />
+                <TableColumn fx:id="usuariosColumn" editable="false" prefWidth="75.0" text="Usuarios Online" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#ButtonAtualizarClick" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0B9CE3;" text="Atualizar" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0" />
+            <Button mnemonicParsing="false" onAction="#ButtonAtualizarClick" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0B9CE3;" text="Atualizar" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font name="Lucida Sans Regular" size="12.0" />
+               </font></Button>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="15.0" layoutY="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
          <children>
-            <TextArea fx:id="chatTextArea" editable="false" layoutY="40.0" prefHeight="300.0" prefWidth="405.0" styleClass="middle" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+            <TextArea fx:id="chatTextArea" editable="false" layoutY="40.0" prefHeight="300.0" prefWidth="405.0" styleClass="middle" wrapText="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                <font>
                   <Font name="Lucida Sans Regular" size="12.0" />
                </font>
