@@ -13,7 +13,6 @@ public class LoginDialogController {
 	private TextField nomeTextField;
 
 	private Stage dialogStage;
-	private boolean entrarClick = false;
 
 	public LoginDialogController() {
 	}
@@ -26,8 +25,8 @@ public class LoginDialogController {
 		this.dialogStage = dialogStage;
 	}
 
-	public boolean entrarClick() {
-		return entrarClick;
+	public String getNomeText() {
+		return nomeTextField.getText();
 	}
 
 	@FXML
@@ -38,7 +37,7 @@ public class LoginDialogController {
 	@FXML
 	private void ButtonEntrarClick() {
 		if (validacao()) {
-			entrarClick = true;
+			dialogStage.close();
 		}
 	}
 
@@ -62,14 +61,5 @@ public class LoginDialogController {
 		}
 	}
 
-	/**
-	 * É chamado pela aplicação principal para dar uma referência de volta a si
-	 * mesmo.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMainApp(MainApp mainApp) {
-
-	}
 
 }

@@ -24,9 +24,13 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		showLoginDialog();
-
-		showChatOverview();
+		if (!showLoginDialog().equals("")) {		
+			
+			showChatOverview();			
+			
+		} else {
+			primaryStage.close();
+		}
 	}
 
 	/**
@@ -69,7 +73,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public boolean showLoginDialog() {
+	public String showLoginDialog() {
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
@@ -91,10 +95,10 @@ public class MainApp extends Application {
 			// Mostra a janela e espera até o usuário fechar.
 			dialogStage.showAndWait();
 
-			return controller.entrarClick();
+			return controller.getNomeText();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return "";
 		}
 	}
 
