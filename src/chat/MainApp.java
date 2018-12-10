@@ -24,7 +24,9 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		if (!showLoginDialog().equals("")) {		
+		String nome = showLoginDialog();
+		
+		if (!nome.equals("")) {	
 			
 			showChatOverview();			
 			
