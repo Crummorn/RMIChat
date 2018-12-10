@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-//import java.util.Scanner;
 
 import chat.model.server.ChatServerIF;
 import chat.view.ChatOverviewController;
@@ -14,7 +13,6 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 	private static final long serialVersionUID = 1L;
 	private ChatServerIF chatServer;
 	private String name = null;
-//	private Scanner scanner;
 	private ChatOverviewController controller;
 
 	public ChatClient(String name, ChatServerIF chatServer) throws RemoteException {
@@ -53,7 +51,6 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 
 	@Override
 	public void run() {
-//		String message;
 		
 		try {
 			chatServer.broadcastMessage("Novo usuario conectado [" + this.name + "]");
@@ -62,13 +59,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 		}
 		
 		while (true) {
-//			message = scanner.nextLine();
-//
-//			try {
-//				chatServer.broadcastMessage(dataHoraAtual() + name + ": " + message);
-//			} catch (RemoteException e) {
-//				e.printStackTrace();
-//			} 
+			
 		}
 	}
 

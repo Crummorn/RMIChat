@@ -56,7 +56,6 @@ public class ChatOverviewController {
 
 	@FXML
 	private void ButtonEnviarClick() throws RemoteException {
-//		chatTextArea.setText(chatTextArea.getText() + "\n" + mensagemTextField.getText());
 		chatServer.broadcastMessage(client.getName() + ": " + mensagemTextField.getText());
 		
 		mensagemTextField.clear();
