@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import chat.model.server.ChatServerIF;
 import chat.view.ChatOverviewController;
@@ -14,7 +14,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 	private static final long serialVersionUID = 1L;
 	private ChatServerIF chatServer;
 	private String name = null;
-	private Scanner scanner;
+//	private Scanner scanner;
 	private ChatOverviewController controller;
 
 	public ChatClient(String name, ChatServerIF chatServer) throws RemoteException {
@@ -30,10 +30,14 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 		
 		chatServer.registerChatClient(this);
 	}
+	
+	public String getName() {
+		return this.name;
+	}
 
 	@Override
 	public void retriveMessage(String message) throws RemoteException {		
-		controller.retrive(message);
+		controller.retrive(dataHoraAtual() + message);
 	}
 	
 
@@ -44,27 +48,27 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 		String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
 		String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
 		
-		return "[" + hora + " " + data + "]";
+		return "[" + hora + " " + data + "] ";
 	}
 
 	@Override
 	public void run() {
-		String message;
+//		String message;
 		
 		try {
-			chatServer.broadcastMessage(dataHoraAtual() + " Novo usuario conectado [" + this.name + "]");
+			chatServer.broadcastMessage("Novo usuario conectado [" + this.name + "]");
 		} catch (RemoteException e1) {
 			e1.printStackTrace();
 		}
 		
 		while (true) {
-			message = scanner.nextLine();
-
-			try {
-				chatServer.broadcastMessage(dataHoraAtual() + name + ": " + message);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			} 
+//			message = scanner.nextLine();
+//
+//			try {
+//				chatServer.broadcastMessage(dataHoraAtual() + name + ": " + message);
+//			} catch (RemoteException e) {
+//				e.printStackTrace();
+//			} 
 		}
 	}
 

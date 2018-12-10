@@ -33,6 +33,10 @@ public class ChatOverviewController {
 	private MainApp mainApp;
 	// Referencia para o nome
 	private String nome;
+	
+	private ChatServerIF chatServer;
+	
+	private ChatClient client;
 
 	/**
 	 * O construtor. O construtor é chamado antes do método inicialize().
@@ -51,8 +55,10 @@ public class ChatOverviewController {
 	}
 
 	@FXML
-	private void ButtonEnviarClick() {
-		chatTextArea.setText(chatTextArea.getText() + "\n" + mensagemTextField.getText());
+	private void ButtonEnviarClick() throws RemoteException {
+//		chatTextArea.setText(chatTextArea.getText() + "\n" + mensagemTextField.getText());
+		chatServer.broadcastMessage(client.getName() + ": " + mensagemTextField.getText());
+		
 		mensagemTextField.clear();
 	}
 
@@ -64,9 +70,11 @@ public class ChatOverviewController {
 	public void inicializarChatclient(String nome) throws MalformedURLException, RemoteException, NotBoundException {
 		String chatServerURL = "rmi://localhost:10099/RMIChatServer";
 
-		ChatServerIF chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
+		chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
 		
-		new Thread(new ChatClient(nome, chatServer, this)).start();
+		client = new ChatClient(nome, chatServer, this);
+		
+		new Thread(client).start();
 	}
 	
 	public void retrive(String mensagem) {
