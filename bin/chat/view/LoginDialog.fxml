@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="148.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chat.view.LoginDialogController">
+   <children>
+      <TextField fx:id="nomeTextField" layoutX="15.0" layoutY="61.0" prefHeight="25.0" prefWidth="250.0" promptText="Informe seu nome de usuario..." AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Label layoutX="46.0" layoutY="14.0" text="Informe seu nome para logar no chat" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Lucida Sans Regular" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="275.0" layoutY="108.0" mnemonicParsing="false" onAction="#ButtonEntrarClick" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #0B9CE3;" text="Entrar" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Button layoutX="15.0" layoutY="108.0" mnemonicParsing="false" onAction="#ButtonCancelarClick" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: red;" text="Cancelar" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+   </children>
+</AnchorPane>

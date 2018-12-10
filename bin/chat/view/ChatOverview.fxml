@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B0C4DE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chat.view.ChatOverviewController">
+   <children>
+      <AnchorPane layoutX="435.0" layoutY="1.0" prefHeight="400.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TableView layoutY="35.0" prefHeight="344.0" prefWidth="150.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="45.0">
+              <columns>
+                <TableColumn editable="false" prefWidth="75.0" text="Usuarios Online" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button mnemonicParsing="false" onAction="#ButtonAtualizarClick" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0B9CE3;" text="Atualizar" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="15.0" layoutY="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <TextArea fx:id="chatTextArea" editable="false" layoutY="40.0" prefHeight="300.0" prefWidth="405.0" styleClass="middle" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+               <font>
+                  <Font name="Lucida Sans Regular" size="12.0" />
+               </font>
+            </TextArea>
+            <TextField fx:id="mensagemTextField" layoutY="350.0" prefHeight="25.0" prefWidth="320.0" promptText="Digite sua mensagem aqui..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="85.0">
+               <font>
+                  <Font name="Lucida Sans Regular" size="12.0" />
+               </font>
+            </TextField>
+            <Button layoutX="335.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonEnviarClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #0B9CE3;" text="Enviar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Label text="RMI CHAT" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Lucida Sans Demibold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
