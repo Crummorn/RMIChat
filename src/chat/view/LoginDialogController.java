@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import chat.MainApp;
 
 public class LoginDialogController {
 

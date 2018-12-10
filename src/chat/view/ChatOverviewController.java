@@ -3,7 +3,15 @@ package chat.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 import chat.MainApp;
+import chat.model.client.ChatClient;
+import chat.model.server.ChatServerIF;
 
 public class ChatOverviewController {
 	// @FXML
@@ -21,7 +29,10 @@ public class ChatOverviewController {
 	// private Button atualizarButton;
 
 	// Reference to the main application.
+	@SuppressWarnings("unused")
 	private MainApp mainApp;
+	// Referencia para o nome
+	private String nome;
 
 	/**
 	 * O construtor. O construtor é chamado antes do método inicialize().
@@ -35,10 +46,8 @@ public class ChatOverviewController {
 	 * arquivo fxml ter sido carregado.
 	 */
 	@FXML
-	private void initialize() {
-		// Inicializa a tablea de pessoa com duas colunas.
-		// usuariosColumn.setCellValueFactory(cellData ->
-		// cellData.getValue().firstNameProperty());
+	private void initialize() {		
+		
 	}
 
 	@FXML
@@ -48,12 +57,20 @@ public class ChatOverviewController {
 	}
 
 	@FXML
-	private void ButtonCoelhoClick() {
-		mainApp.showLoginDialog();
-	}
-
-	@FXML
 	private void ButtonAtualizarClick() {
+		mensagemTextField.setText(nome);
+	}
+	
+	public void inicializarChatclient(String nome) throws MalformedURLException, RemoteException, NotBoundException {
+		String chatServerURL = "rmi://localhost:10099/RMIChatServer";
+
+		ChatServerIF chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
+		
+		new Thread(new ChatClient(nome, chatServer, this)).start();
+	}
+	
+	public void retrive(String mensagem) {
+		chatTextArea.setText(chatTextArea.getText() + "\n" + mensagem);		
 	}
 
 	/**
@@ -64,6 +81,10 @@ public class ChatOverviewController {
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

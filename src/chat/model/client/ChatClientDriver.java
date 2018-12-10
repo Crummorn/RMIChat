@@ -18,11 +18,11 @@ public class ChatClientDriver {
 
 		ChatServerIF chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
 		
-		System.out.println("Informe seu nome: ");
-		
-		new Thread(new ChatClient(new Scanner(System.in).next(), chatServer)).start();
+//		System.out.println("Informe seu nome: ");
+//		
+//		new Thread(new ChatClient(new Scanner(System.in).next(), chatServer)).start();
 
-//		new Thread(new ChatClient(args[0], chatServer)).start();
+		new Thread(new ChatClient(args[0], chatServer)).start();
 
 	}
 

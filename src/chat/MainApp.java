@@ -1,6 +1,7 @@
 package chat;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 import chat.view.ChatOverviewController;
 import chat.view.LoginDialogController;
@@ -18,7 +19,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws NotBoundException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("RMI CHAT");
 
@@ -28,7 +29,7 @@ public class MainApp extends Application {
 		
 		if (!nome.equals("")) {	
 			
-			showChatOverview();			
+			showChatOverview(nome);			
 			
 		} else {
 			primaryStage.close();
@@ -56,8 +57,9 @@ public class MainApp extends Application {
 
 	/**
 	 * Mostra o chat overview dentro do root layout.
+	 * @throws NotBoundException 
 	 */
-	public void showChatOverview() {
+	public void showChatOverview(String nome) throws NotBoundException {
 		try {
 			// Carrega o person overview.
 			FXMLLoader loader = new FXMLLoader();
@@ -69,7 +71,11 @@ public class MainApp extends Application {
 
 			// Dá ao controlador acesso à the main app.
 			ChatOverviewController controller = loader.getController();
+			
 			controller.setMainApp(this);
+			
+			controller.inicializarChatclient(nome);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

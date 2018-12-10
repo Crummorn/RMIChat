@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import chat.model.server.ChatServerIF;
+import chat.view.ChatOverviewController;
 
 public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Runnable {
 
@@ -14,16 +15,25 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 	private ChatServerIF chatServer;
 	private String name = null;
 	private Scanner scanner;
+	private ChatOverviewController controller;
 
-	protected ChatClient(String name, ChatServerIF chatServer) throws RemoteException {
+	public ChatClient(String name, ChatServerIF chatServer) throws RemoteException {
 		this.name = name;
 		this.chatServer = chatServer;
 		chatServer.registerChatClient(this);
 	}
+	
+	public ChatClient(String name, ChatServerIF chatServer, ChatOverviewController controller) throws RemoteException {
+		this.name = name;
+		this.chatServer = chatServer;
+		this.controller = controller;
+		
+		chatServer.registerChatClient(this);
+	}
 
 	@Override
-	public void retriveMessage(String message) throws RemoteException {
-		System.out.println(message);
+	public void retriveMessage(String message) throws RemoteException {		
+		controller.retrive(message);
 	}
 	
 
@@ -39,11 +49,10 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 
 	@Override
 	public void run() {
-		scanner = new Scanner(System.in);
 		String message;
 		
 		try {
-			chatServer.broadcastMessage("Novo usuario conectado [" + this.name + "]");
+			chatServer.broadcastMessage(dataHoraAtual() + " Novo usuario conectado [" + this.name + "]");
 		} catch (RemoteException e1) {
 			e1.printStackTrace();
 		}
