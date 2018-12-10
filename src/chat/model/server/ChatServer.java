@@ -10,9 +10,9 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerIF {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<ChatClientIF> chatClients;
-
+	
 	protected ChatServer() throws RemoteException {
-		chatClients = new ArrayList<ChatClientIF>();
+		chatClients = new ArrayList<ChatClientIF>(10);
 	}
 
 	@Override
@@ -27,6 +27,22 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerIF {
 		while (i < chatClients.size()) {
 			chatClients.get(i++).retriveMessage(message);
 		}
+	}
+	
+	@Override
+	public ArrayList<String> listarClientes() throws RemoteException {
+		ArrayList<String> lista = new ArrayList<String>();
+		
+		for (ChatClientIF chatClientIF : chatClients) {
+			lista.add(chatClientIF.getName());
+		}
+		
+		return lista;
+	}
+
+	@Override
+	public ArrayList<ChatClientIF> getClientes() throws RemoteException {
+		return this.chatClients;
 	}
 
 }

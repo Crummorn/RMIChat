@@ -26,11 +26,11 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		String nome = showLoginDialog();
-		
-		if (!nome.equals("")) {	
-			
-			showChatOverview(nome);			
-			
+
+		if (!nome.equals("")) {
+
+			showChatOverview(nome);
+
 		} else {
 			primaryStage.close();
 		}
@@ -57,7 +57,8 @@ public class MainApp extends Application {
 
 	/**
 	 * Mostra o chat overview dentro do root layout.
-	 * @throws NotBoundException 
+	 * 
+	 * @throws NotBoundException
 	 */
 	public void showChatOverview(String nome) throws NotBoundException {
 		try {
@@ -71,11 +72,10 @@ public class MainApp extends Application {
 
 			// Dá ao controlador acesso à the main app.
 			ChatOverviewController controller = loader.getController();
-			
+
 			controller.setMainApp(this);
-			
+
 			controller.inicializarChatclient(nome);
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -110,6 +110,10 @@ public class MainApp extends Application {
 		}
 	}
 
+	public void close() {
+		primaryStage.close();
+	}
+	
 	/**
 	 * Retorna o palco principal.
 	 * 
