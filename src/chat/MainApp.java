@@ -24,6 +24,10 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) throws NotBoundException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("RMI CHAT");
+		this.primaryStage.setMinHeight(550);
+		this.primaryStage.setMinWidth(600);
+		
+		// Sempre que um cliente sair da aplicação ele chama o closeClient();
 		this.primaryStage.setOnCloseRequest(event -> {
 			try {
 				chatOverviewController.closeClient();
@@ -31,8 +35,6 @@ public class MainApp extends Application {
 				e.printStackTrace();
 			}
 		});
-		this.primaryStage.setMinHeight(550);
-		this.primaryStage.setMinWidth(600);
 		
 		String nome = showLoginDialog();
 

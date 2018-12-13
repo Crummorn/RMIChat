@@ -139,6 +139,10 @@ public class ChatOverviewController {
 		chatTextArea.setText(chatTextArea.getText() + "\n" + mensagem);
 	}
 
+	/*
+	 * Remove o cliente do servidor e fecha a aplicação
+	 * Este metodo ocorre sempre que um cliente sai do sistema
+	 */
 	public void closeClient() throws RemoteException {
 		chatServer.removeChatClient(chatClient);
 		System.exit(0);

@@ -12,6 +12,10 @@ public abstract interface ChatServerIF extends Remote {
 	 */
 	public void registryChatClient(ChatClientIF chatClient) throws RemoteException;
 	
+	/*
+	 * Remove o cliente do servidor.
+	 * Este metodo é utilizado sempre que um cliente sai da aplicação
+	 */
 	public void removeChatClient(ChatClientIF chatClient) throws RemoteException;
 	
 	/*
