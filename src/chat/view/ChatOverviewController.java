@@ -145,6 +145,7 @@ public class ChatOverviewController {
 	 */
 	public void closeClient() throws RemoteException {
 		chatServer.removeChatClient(chatClient);
+		chatServer.broadcastMessage("Usuario Desconectado [" + chatClient.getName() + "]");
 		System.exit(0);
 	}
 	
