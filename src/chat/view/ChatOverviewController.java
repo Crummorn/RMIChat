@@ -42,7 +42,7 @@ public class ChatOverviewController {
 
 	/**
 	 * Contrutor
-	 * O construtor é chamado antes do método inicialize().
+	 * O construtor é chamado antes do método initialize().
 	 */
 	public ChatOverviewController() {
 

@@ -14,25 +14,23 @@ public class LoginDialogController {
 
 	private Stage dialogStage;
 
+	/*
+	 * Controtor.
+	 * O construtor é chamado antes do método initialize().
+	 */
 	public LoginDialogController() {
-	}
+	}	
 
 	@FXML
 	private void initialize() {
-		nomeTextField.requestFocus();
-		
+		// Adiciona a tecla ENTER como confirmação
 		nomeTextField.setOnKeyPressed( (keyEvent) -> {  
 		    if(keyEvent.getCode() == KeyCode.ENTER) 
 					ButtonEntrarClick();
 		} );
-	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-
-	public String getNomeText() {
-		return nomeTextField.getText();
+		// Solicita o foco assim que inicializa no TextField
+		nomeTextField.requestFocus();
 	}
 
 	@FXML
@@ -46,7 +44,21 @@ public class LoginDialogController {
 			dialogStage.close();
 		}
 	}
+	
+	/*
+	 * Retorna o nome inserido no TextField
+	 */
+	public String getNomeText() {
+		return nomeTextField.getText();
+	}
+	
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
 
+	/*
+	 * Valida se o nome usado é valido.
+	 */
 	private boolean validacao() {
 		String errorMessage = "";
 
@@ -66,6 +78,4 @@ public class LoginDialogController {
 			return false;
 		}
 	}
-
-
 }
