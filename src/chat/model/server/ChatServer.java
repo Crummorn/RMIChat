@@ -18,8 +18,7 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerIF {
 		chatClients = new ArrayList<ChatClientIF>(10);
 	}
 
-	@Override
-	
+	@Override	
 	public synchronized void registryChatClient(ChatClientIF chatClient) throws RemoteException {
 		this.chatClients.add(chatClient);
 	}

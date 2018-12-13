@@ -16,6 +16,7 @@ import java.rmi.ConnectException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.ServerException;
 import java.util.ArrayList;
 
 import chat.MainApp;
@@ -113,6 +114,16 @@ public class ChatOverviewController {
 			alert.setContentText("Por favor, tente novamente mais tarde.");
 			alert.showAndWait();
 
+			// Fecha a aplicação
+			mainApp.close();
+		} catch (ServerException e) {
+			// Cria um alerta caso o ChatServer esteja offline.
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("SERVIDOR OFFLINE!");
+			alert.setHeaderText("O servidor encontra-se offline.");
+			alert.setContentText("Por favor, tente novamente mais tarde.");
+			alert.showAndWait();
+			
 			// Fecha a aplicação
 			mainApp.close();
 		} catch (IOException e) {

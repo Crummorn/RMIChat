@@ -21,7 +21,10 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) throws NotBoundException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("RMI CHAT");
-
+		this.primaryStage.setOnCloseRequest(event -> System.exit(0));
+		this.primaryStage.setMinHeight(550);
+		this.primaryStage.setMinWidth(600);
+		
 		String nome = showLoginDialog();
 
 		if (!nome.equals("")) {
@@ -30,6 +33,7 @@ public class MainApp extends Application {
 		} else {
 			primaryStage.close();
 		}
+		
 	}
 
 	/**
