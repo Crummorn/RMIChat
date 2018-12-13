@@ -37,7 +37,7 @@ public class ChatOverviewController {
 
 	private MainApp mainApp;
 	private ChatServerIF chatServer;
-	private ChatClient cliente;
+	private ChatClient chatClient;
 
 	private ArrayList<Client> clientes = new ArrayList<>(); 
 
@@ -79,7 +79,7 @@ public class ChatOverviewController {
 	 */
 	@FXML
 	private void buttonEnviarClick() throws RemoteException {
-		chatServer.broadcastMessage(cliente.getName() + ": " + mensagemTextField.getText());
+		chatServer.broadcastMessage(chatClient.getName() + ": " + mensagemTextField.getText());
 		mensagemTextField.clear();
 		mensagemTextField.requestFocus();
 	}
@@ -103,9 +103,9 @@ public class ChatOverviewController {
 		try {
 			String chatServerURL = "rmi://localhost:10099/RMIChatServer";
 			chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
-			cliente = new ChatClient(nome, chatServer, this);
+			chatClient = new ChatClient(nome, chatServer, this);
 
-			new Thread(cliente).start();
+			new Thread(chatClient).start();
 		} catch (ConnectException e) {
 			// Cria um alerta caso o ChatServer esteja offline.
 			Alert alert = new Alert(AlertType.WARNING);
@@ -139,6 +139,11 @@ public class ChatOverviewController {
 		chatTextArea.setText(chatTextArea.getText() + "\n" + mensagem);
 	}
 
+	public void closeClient() throws RemoteException {
+		chatServer.removeChatClient(chatClient);
+		System.exit(0);
+	}
+	
 	/**
 	 * É chamado pela aplicação principal para dar uma referência de volta a si mesmo.
 	 */

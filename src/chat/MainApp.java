@@ -2,6 +2,7 @@ package chat;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import chat.view.ChatOverviewController;
 import chat.view.LoginDialogController;
@@ -16,12 +17,20 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private ChatOverviewController chatOverviewController;
+	private LoginDialogController loginDialogController;
 
 	@Override
 	public void start(Stage primaryStage) throws NotBoundException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("RMI CHAT");
-		this.primaryStage.setOnCloseRequest(event -> System.exit(0));
+		this.primaryStage.setOnCloseRequest(event -> {
+			try {
+				chatOverviewController.closeClient();
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 		this.primaryStage.setMinHeight(550);
 		this.primaryStage.setMinWidth(600);
 		
@@ -71,9 +80,9 @@ public class MainApp extends Application {
 			rootLayout.setCenter(chatOverview);
 
 			// Dá ao controlador acesso à the main app.
-			ChatOverviewController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.initializeChatClient(nome);
+			chatOverviewController = loader.getController();
+			chatOverviewController.setMainApp(this);
+			chatOverviewController.initializeChatClient(nome);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -99,13 +108,13 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Define a pessoa no controller.
-			LoginDialogController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
+			loginDialogController = loader.getController();
+			loginDialogController.setDialogStage(dialogStage);
 
 			// Mostra a janela e espera até o usuário fechar.
 			dialogStage.showAndWait();
 
-			return controller.getNomeText();
+			return loginDialogController.getNomeText();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "";

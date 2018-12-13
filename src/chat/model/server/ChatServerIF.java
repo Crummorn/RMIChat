@@ -11,7 +11,9 @@ public abstract interface ChatServerIF extends Remote {
 	 * Este metodo é utilizado pelo ChatOvewViewController no metodo "initializeChatClient"
 	 */
 	public void registryChatClient(ChatClientIF chatClient) throws RemoteException;
-
+	
+	public void removeChatClient(ChatClientIF chatClient) throws RemoteException;
+	
 	/*
 	 * Espalha mensagem pelos clientes.
 	 * Este metodo é utilizado pelo ChatOverViewController no metodo "ButtonEnviarClick"
