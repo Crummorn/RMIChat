@@ -15,7 +15,7 @@ public class LoginDialogController {
 	private Stage dialogStage;
 
 	/*
-	 * Controtor.
+	 * Construtor.
 	 * O construtor é chamado antes do método initialize().
 	 */
 	public LoginDialogController() {

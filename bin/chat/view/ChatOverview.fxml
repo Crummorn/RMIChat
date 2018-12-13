@@ -21,7 +21,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#ButtonAtualizarClick" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0B9CE3;" text="Atualizar" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
+            <Button mnemonicParsing="false" onAction="#buttonAtualizarClick" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0B9CE3;" text="Atualizar" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font name="Lucida Sans Regular" size="12.0" />
                </font></Button>
@@ -34,12 +34,12 @@
                   <Font name="Lucida Sans Regular" size="12.0" />
                </font>
             </TextArea>
-            <TextField fx:id="mensagemTextField" layoutY="350.0" onAction="#TextFieldEnter" prefHeight="25.0" prefWidth="320.0" promptText="Digite sua mensagem aqui..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="85.0">
+            <TextField fx:id="mensagemTextField" layoutY="350.0" prefHeight="25.0" prefWidth="320.0" promptText="Digite sua mensagem aqui..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="85.0">
                <font>
                   <Font name="Lucida Sans Regular" size="12.0" />
                </font>
             </TextField>
-            <Button layoutX="335.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonEnviarClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #0B9CE3;" text="Enviar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button layoutX="335.0" layoutY="350.0" mnemonicParsing="false" onAction="#buttonEnviarClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #0B9CE3;" text="Enviar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Label text="RMI CHAT" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="Lucida Sans Demibold" size="24.0" />
