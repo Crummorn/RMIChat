@@ -11,12 +11,16 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerIF {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<ChatClientIF> chatClients;
 	
+	/*
+	 * Contrutor.
+	 */
 	protected ChatServer() throws RemoteException {
 		chatClients = new ArrayList<ChatClientIF>(10);
 	}
 
 	@Override
-	public synchronized void registerChatClient(ChatClientIF chatClient) throws RemoteException {
+	
+	public synchronized void registryChatClient(ChatClientIF chatClient) throws RemoteException {
 		this.chatClients.add(chatClient);
 	}
 

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 
 import chat.MainApp;
 import chat.model.client.ChatClient;
+import chat.model.client.Client;
 import chat.model.server.ChatServerIF;
-import chat.model.server.Client;
 
 public class ChatOverviewController {
 	@FXML
@@ -34,102 +34,104 @@ public class ChatOverviewController {
 	@FXML
 	private TextArea chatTextArea;
 
-	// Reference to the main application.
-	@SuppressWarnings("unused")
 	private MainApp mainApp;
-
 	private ChatServerIF chatServer;
-
 	private ChatClient cliente;
 
-	private ArrayList<Client> clientes = new ArrayList<>(); // TODO: Botão de sair que remove o cliente que saiu da lista.
+	private ArrayList<Client> clientes = new ArrayList<>(); 
 
 	/**
-	 * O construtor. O construtor é chamado antes do método inicialize().
+	 * Contrutor
+	 * O construtor é chamado antes do método inicialize().
 	 */
 	public ChatOverviewController() {
 
 	}
 
 	/**
-	 * Inicializa a classe controller. Este método é chamado automaticamente após o
-	 * arquivo fxml ter sido carregado.
+	 * Inicializa a classe controller. 
+	 * Este método é chamado automaticamente após o arquivo fxml ter sido carregado.
 	 */
 	@FXML
 	private void initialize() {
+		// Inicializa a coluna da tabela
 		usuariosColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		
-		mensagemTextField.setOnKeyPressed( (keyEvent) -> {  
-		    if(keyEvent.getCode() == KeyCode.ENTER) {
+
+		// Adiciona a tecla ENTER como confirmação
+		mensagemTextField.setOnKeyPressed((keyEvent) -> {
+			if (keyEvent.getCode() == KeyCode.ENTER) {
 				try {
-					ButtonEnviarClick();
+					buttonEnviarClick();
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
-		    }
-		} );
-		
+			}
+		});
+
+		// Solicita o foco assim que inicializa no TextField
 		mensagemTextField.requestFocus();
 	}
 
+	/*
+	 * Envia mensagem para outros usuarios.
+	 * Este metodo ocorre ao clicar no botão "Enviar" no ChatOverview.
+	 */
 	@FXML
-	private void ButtonEnviarClick() throws RemoteException {
+	private void buttonEnviarClick() throws RemoteException {
 		chatServer.broadcastMessage(cliente.getName() + ": " + mensagemTextField.getText());
-
 		mensagemTextField.clear();
-		
 		mensagemTextField.requestFocus();
 	}
 
+	/*
+	 * Atualiza lista de usuarios online.
+	 * Este metodo ocorre ao clicar no botão "Atualizar" no ChatOverview
+	 */
 	@FXML
-	private void ButtonAtualizarClick() throws RemoteException {
+	private void buttonAtualizarClick() throws RemoteException {
 		usuariosTable.getItems().clear();
-
 		usuariosTable.getItems().addAll(clientes);
 	}
 
-	public void adicionarCliente(String nome) {
-		
-	}
-	
-	public void inicializarChatclient(String nome) throws MalformedURLException, RemoteException, NotBoundException {
+	/*
+	 * Cria conexão do usuario com o servidor.
+	 * Este metodo ocorre apos o usuario clicar no botão "Entrar" no LoginDialog.
+	 */
+	public void initializeChatClient(String nome) throws MalformedURLException, RemoteException, NotBoundException {
+		// Tenta criar uma conexão com o ChatServer.
 		try {
-			
 			String chatServerURL = "rmi://localhost:10099/RMIChatServer";
-
 			chatServer = (ChatServerIF) Naming.lookup(chatServerURL);
-
 			cliente = new ChatClient(nome, chatServer, this);
 
 			new Thread(cliente).start();
-			
-			clientes.add(new Client(nome));
 		} catch (ConnectException e) {
+			// Cria um alerta caso o ChatServer esteja offline.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("SERVIDOR OFFLINE!");
 			alert.setHeaderText("O servidor encontra-se offline.");
 			alert.setContentText("Por favor, tente novamente mais tarde.");
-
 			alert.showAndWait();
 
+			// Fecha a aplicação
 			mainApp.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void retrive(String mensagem) {
+	/*
+	 * Adiciona a mensagem recebida no TextArea
+	 * É chamado pelo ChatServer pelo metodo "broadcastMessage"
+	 */
+	public void reciveMenssage(String mensagem) {
 		chatTextArea.setText(chatTextArea.getText() + "\n" + mensagem);
 	}
 
 	/**
-	 * É chamado pela aplicação principal para dar uma referência de volta a si
-	 * mesmo.
-	 * 
-	 * @param mainApp
+	 * É chamado pela aplicação principal para dar uma referência de volta a si mesmo.
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-
 }

@@ -15,28 +15,36 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 	private String name = null;
 	private ChatOverviewController controller;
 	
+	/*
+	 * Construtor.
+	 * É utilizado nos testes feitos direto no Prompt.
+	 */
 	public ChatClient(String name, ChatServerIF chatServer) throws RemoteException {
 		this.name = name;
 		this.chatServer = chatServer;
 		
-		chatServer.registerChatClient(this);
+		chatServer.registryChatClient(this);
 	}
 	
+	/*
+	 * Construtor.
+	 * É utilizado nos testes feitos com interface grafica.
+	 */
 	public ChatClient(String name, ChatServerIF chatServer, ChatOverviewController controller) throws RemoteException {
 		this.name = name;
 		this.chatServer = chatServer;
 		this.controller = controller;
 		
-		chatServer.registerChatClient(this);
+		chatServer.registryChatClient(this);
 	}
-	
+
 	@Override
 	public String getName() {
 		return this.name;
 	}
 
 	@Override
-	public String dataHoraAtual() {
+	public String actualHourDate() {
 		Date dataHoraAtual = new Date();
 		
 		String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
@@ -47,7 +55,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientIF, Run
 
 	@Override
 	public void retriveMessage(String message) throws RemoteException {		
-		controller.retrive(dataHoraAtual() + message);
+		controller.reciveMenssage(actualHourDate() + message);
 	}
 
 	@Override

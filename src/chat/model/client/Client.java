@@ -1,4 +1,4 @@
-package chat.model.server;
+package chat.model.client;
 
 public class Client {
 	private String nome;

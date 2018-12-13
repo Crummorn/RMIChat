@@ -14,7 +14,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
@@ -23,14 +22,11 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("RMI CHAT");
 
-		initRootLayout();
-
 		String nome = showLoginDialog();
 
 		if (!nome.equals("")) {
-
+			initializeRootLayout();
 			showChatOverview(nome);
-
 		} else {
 			primaryStage.close();
 		}
@@ -38,8 +34,9 @@ public class MainApp extends Application {
 
 	/**
 	 * Inicializa o root layout (layout base).
+	 * É chamado pelo metodo "start"
 	 */
-	public void initRootLayout() {
+	public void initializeRootLayout() {
 		try {
 			// Carrega o root layout do arquivo fxml.
 			FXMLLoader loader = new FXMLLoader();
@@ -56,35 +53,32 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Mostra o chat overview dentro do root layout.
-	 * 
-	 * @throws NotBoundException
+	 * Mostra o chat overview.
+	 * É chamado pelo metodo "start"
 	 */
 	public void showChatOverview(String nome) throws NotBoundException {
 		try {
-			// Carrega o person overview.
+			// Carrega o ChatOverview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ChatOverview.fxml"));
 			AnchorPane chatOverview = (AnchorPane) loader.load();
 
-			// Define o person overview dentro do root layout.
+			// Define o ChatOverview dentro do root layout.
 			rootLayout.setCenter(chatOverview);
 
 			// Dá ao controlador acesso à the main app.
 			ChatOverviewController controller = loader.getController();
-
 			controller.setMainApp(this);
-
-
-			controller.inicializarChatclient(nome);
-			
-			controller.adicionarCliente(nome);
-			
+			controller.initializeChatClient(nome);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/*
+	 * Mostra o dialogo de login.
+	 * É chamado pelo metodo "start"
+	 */
 	public String showLoginDialog() {
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
@@ -114,14 +108,17 @@ public class MainApp extends Application {
 		}
 	}
 
+	/*
+	 * Fecha a aplicação.
+	 * É chamado pelo ChatOverviewController.
+	 */
 	public void close() {
 		primaryStage.close();
 	}
-	
+
 	/**
 	 * Retorna o palco principal.
-	 * 
-	 * @return
+	 * É chamado pelo ChatOverviewController.
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
